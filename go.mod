@@ -1,3 +1,3 @@
-module github.com/arafipro/go-stock
+module github.com/arafipro/go-jpstock
 
 go 1.21.1
