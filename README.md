@@ -1,1 +1,1 @@
-# go-jpstock
+# go-jpstock-api
