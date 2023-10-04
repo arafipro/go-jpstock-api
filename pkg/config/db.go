@@ -1,14 +1,13 @@
 package config
 
 import (
-	"database/sql"
 	"fmt"
-	"log"
-
-	_ "github.com/go-sql-driver/mysql"
+	
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-var db *sql.DB
+var db *gorm.DB
 
 const username string = "root"
 const password string = "root"
@@ -17,21 +16,16 @@ const dbname string = "go-jpstock"
 
 func Connect() {
 	var err error
-	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		username, password, address, dbname,
 	)
-	d, err := sql.Open("mysql", dataSourceName)
+	d, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
 	db = d
-
-	// DBの接続確認
-	if err := db.Ping(); err != nil {
-		log.Fatal(err)
-	}
 }
 
-func GetDB() *sql.DB {
+func GetDB() *gorm.DB {
 	return db
 }

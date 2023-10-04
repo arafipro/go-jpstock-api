@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/arafipro/go-jpstock/pkg/config"
-	"github.com/arafipro/go-jpstock/pkg/models"
+	
+	_ "github.com/arafipro/go-jpstock-api/pkg/models"
 )
 
 func main() {
@@ -14,9 +13,6 @@ func main() {
 		Addr: ":8080",
 	}
 	fmt.Printf("Starting server at port %s\n", server.Addr)
-	config.Connect()
-	models.CreateMarketTable()
-	models.CreateStockTable()
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
