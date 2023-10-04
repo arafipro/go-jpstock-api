@@ -34,5 +34,4 @@ func CreateStockTable() {
 func init() {
 	config.Connect()
 	db_s = config.GetDB()
-	CreateStockTable()
 }

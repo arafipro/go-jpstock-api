@@ -32,5 +32,4 @@ func CreateMarketTable() {
 func init() {
 	config.Connect()
 	db_m = config.GetDB()
-	CreateMarketTable()
 }
