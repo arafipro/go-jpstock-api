@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -20,15 +20,18 @@ func Connect() {
 	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		username, password, address, dbname,
 	)
-	db, err = sql.Open("mysql", dataSourceName)
+	d, err := sql.Open("mysql", dataSourceName)
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	db = d
 
 	// DBの接続確認
 	if err := db.Ping(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Print("database connected")
+}
+
+func GetDB() *sql.DB {
+	return db
 }
