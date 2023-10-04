@@ -1,35 +1,19 @@
 package models
 
 import (
-	"database/sql"
-	"fmt"
-	"log"
-
-	"github.com/arafipro/go-jpstock/pkg/config"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/arafipro/go-jpstock-api/pkg/config"
+	"gorm.io/gorm"
 )
 
-var db_m *sql.DB
+var db_m *gorm.DB
 
 type Market struct {
-	MarketId int8   `json:"market_id"`
+	MarketId uint8  `json:"market_id" gorm:"primaryKey"`
 	Market   string `json:"market"`
-}
-
-func CreateMarketTable() {
-	tableName := "markets"
-	cmd := fmt.Sprintf(`
-		CREATE TABLE IF NOT EXISTS %s (
-			market_id int(8) PRIMARY KEY,
-			market varchar(128) NOT NULL)`, tableName)
-	var err error
-	_, err = db_m.Exec(cmd)
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func init() {
 	config.Connect()
 	db_m = config.GetDB()
+	db_m.AutoMigrate(&Market{})
 }
