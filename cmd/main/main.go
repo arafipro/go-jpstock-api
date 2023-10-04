@@ -16,6 +16,7 @@ func main() {
 	fmt.Printf("Starting server at port %s\n", server.Addr)
 	config.Connect()
 	models.CreateMarketTable()
+	models.CreateStockTable()
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
